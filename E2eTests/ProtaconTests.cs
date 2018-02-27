@@ -11,5 +11,15 @@ namespace E2eTests
 {
     public class ProtaconTests
     {
+        [Fact]
+        public void TestMainPageTitleShouldBeCorrect()
+        {            
+            using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
+            {
+                driver.Navigate().GoToUrl(@"https://www.protacon.com/");
+
+                Assert.Equal("Etusivu - Protacon", driver.Title);
+            }
+        }        
     }
 }
