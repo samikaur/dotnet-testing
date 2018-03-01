@@ -6,6 +6,7 @@ using OpenQA.Selenium.Support.UI;
 using System.IO;
 using System.Reflection;
 using System.Linq;
+using E2eTests.Pages;
 
 namespace E2eTests
 {
@@ -16,8 +17,8 @@ namespace E2eTests
         {            
             using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
             {
-                driver.Navigate().GoToUrl(@"https://www.protacon.com/");
-
+                var protaconPage = new ProtaconPage(driver);
+                protaconPage.Open();
                 Assert.Equal("Etusivu - Protacon", driver.Title);
             }
         }
@@ -53,6 +54,6 @@ namespace E2eTests
                 Assert.Equal("#13 Pekka Savolainen - Protacon", driver.Title);
                 Assert.True(driver.FindElementByClassName("main-content").Text.Contains("Millainen on Peken normipäivä?"));
             }
-        }        
+        }
     }
 }
