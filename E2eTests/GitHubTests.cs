@@ -20,6 +20,13 @@ namespace E2eTests
                 var gitHubPage = new GitHubPage(driver);
 
                 gitHubPage.Open();
+
+                gitHubPage.Search("docker");
+
+                var result = gitHubPage.GetRepositories();
+
+                Assert.Equal(3, result.Count());
+                Assert.Equal("docker-dotnet-node-sdk", result.First());
             }
 
         }

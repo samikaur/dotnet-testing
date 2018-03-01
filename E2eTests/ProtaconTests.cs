@@ -18,8 +18,10 @@ namespace E2eTests
             using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
             {
                 var protaconPage = new ProtaconPage(driver);
+
                 protaconPage.Open();
-                Assert.Equal("Etusivu - Protacon", driver.Title);
+
+                Assert.Equal("Etusivu - Protacon", protaconPage.GetTitle());
             }
         }
 
@@ -28,13 +30,13 @@ namespace E2eTests
         {            
             using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
             {
-                driver.Navigate().GoToUrl(@"https://www.protacon.com/");
+                var protaconPage = new ProtaconPage(driver);
 
-                driver.FindElementById("menu-item-1728").Click();
+                protaconPage.Open();
 
-                driver.FindElementById("menu-item-10326").Click();
+                protaconPage.NavigateToTietoturva();
 
-                Assert.Equal("Tietoturva - Protacon", driver.Title);
+                Assert.Equal("Tietoturva - Protacon", protaconPage.GetTitle());
             }
         }
         
@@ -43,16 +45,15 @@ namespace E2eTests
         {            
             using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
             {
-                driver.Navigate().GoToUrl(@"https://www.protacon.com/uratarinat/");
+                var protaconPage = new ProtaconPage(driver);
 
-                var links = driver.FindElementByClassName("main-content").FindElements(By.TagName("a"));
+                protaconPage.Open("uratarinat/");
 
-                var pekeLink = links.First(m => m.GetAttribute("href").Contains("pekka"));
+                protaconPage.GoToUraTarina("pekka");
 
-                pekeLink.Click();
+                Assert.Equal("#13 Pekka Savolainen - Protacon", protaconPage.GetTitle());
 
-                Assert.Equal("#13 Pekka Savolainen - Protacon", driver.Title);
-                Assert.True(driver.FindElementByClassName("main-content").Text.Contains("Millainen on Peken normipäivä?"));
+                Assert.Contains("Millainen on Peken normipäivä?", protaconPage.GetMainContent());
             }
         }
     }

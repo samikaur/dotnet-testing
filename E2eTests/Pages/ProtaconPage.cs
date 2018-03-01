@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace E2eTests.Pages
@@ -14,9 +16,35 @@ namespace E2eTests.Pages
             _driver = driver;
         }
 
-        public void Open()
+        public void Open(string url = "")
         {
-            _driver.Navigate().GoToUrl(@"https://www.protacon.com/");
+            _driver.Navigate().GoToUrl(@"https://www.protacon.com/" + url);
+        }
+
+        public string GetTitle()
+        {
+            return _driver.Title;
+        }
+
+        public void NavigateToTietoturva()
+        {
+            _driver.FindElementById("menu-item-1728").Click();
+
+            _driver.FindElementById("menu-item-10326").Click();
+        }
+
+        public void GoToUraTarina(string name)
+        {
+            var links = _driver.FindElementByClassName("main-content").FindElements(By.TagName("a"));
+
+            var link = links.First(m => m.GetAttribute("href").Contains(name));
+
+            link.Click();
+        }
+
+        public string GetMainContent()
+        {
+            return _driver.FindElementByClassName("main-content").Text;
         }
     }
 }
