@@ -20,7 +20,19 @@ namespace IntegrationTests.Tests
         public async Task Get_ReturnsProducts()
         {
             Initialize();
-            await _client.GetAsync("/products");
+
+            var response = await _client.GetAsync("/products");
+            response.EnsureSuccessStatusCode();
+
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            var result = JsonConvert.DeserializeObject<IEnumerable<Product>>(responseString);
+
+            Assert.Equal(2, result.Count());
+            Assert.Equal("testi", result.First().Name);
+            Assert.Equal(10m, result.First().Price);
+            Assert.Equal("toinen", result.Last().Name);
+            Assert.Equal(4m, result.Last().Price);
         }
 
         private void Initialize()
