@@ -15,7 +15,10 @@ namespace E2eTests
         [Fact]
         public void TestFindRepositorySearchReturnsCorrectRepositories()
         {
-            using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
+            var options = new ChromeOptions();
+            options.AddArgument("start-maximized");
+
+            using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options))
             {
                 var gitHubPage = new GitHubPage(driver);
 
