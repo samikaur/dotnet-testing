@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace E2eTests.Pages
 {
@@ -35,6 +36,13 @@ namespace E2eTests.Pages
 
         public void GoToUraTarina(string name)
         {
+            var wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 5));
+
+            wait.Until(drv => drv.FindElement(By.CssSelector(".main-content img.playercard")));
+
+            // Hide accept cookie element
+            _driver.FindElementById("cn-accept-cookie").Click();
+
             var links = _driver.FindElementByClassName("main-content").FindElements(By.TagName("a"));
 
             var link = links.First(m => m.GetAttribute("href").Contains(name));

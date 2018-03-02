@@ -14,8 +14,11 @@ namespace E2eTests
     {
         [Fact]
         public void TestMainPageTitleShouldBeCorrect()
-        {            
-            using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
+        {
+            var options = new ChromeOptions();
+            options.AddArgument("start-maximized");
+
+            using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options))
             {
                 var protaconPage = new ProtaconPage(driver);
 
@@ -27,8 +30,11 @@ namespace E2eTests
 
         [Fact]
         public void TestNavigationToTietoturva()
-        {            
-            using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
+        {
+            var options = new ChromeOptions();
+            options.AddArgument("start-maximized");
+
+            using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options))
             {
                 var protaconPage = new ProtaconPage(driver);
 
@@ -42,8 +48,11 @@ namespace E2eTests
         
         [Fact]
         public void TestUratarinatGoesToSingleUratarina()
-        {            
-            using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
+        {
+            var options = new ChromeOptions();
+            options.AddArgument("start-maximized");
+
+            using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options))
             {
                 var protaconPage = new ProtaconPage(driver);
 
